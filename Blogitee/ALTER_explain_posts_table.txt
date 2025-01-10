@@ -1,0 +1,53 @@
+For database 'posts' table:
+
+1./ ALTER TABLE posts ADD CONSTRAINT FK_blog_category FOREIGN KEY (category_id) REFERENCES categories (id) ON DELETE SET NULL;
+
+Explanation:
+ALTER TABLE posts:
+
+Modifies the posts table to add a new constraint.
+ADD CONSTRAINT FK_blog_category:
+
+Adds a foreign key constraint named FK_blog_category (a custom name for the constraint).
+FOREIGN KEY (category_id):
+
+Specifies that the category_id column in the posts table is a foreign key.
+REFERENCES categories (id):
+
+Specifies that category_id in the posts table references the id column in the categories table. This means every category_id in the posts table must match an id in the categories table (or be NULL).
+ON DELETE SET NULL:
+
+Defines the behavior when a referenced record in the categories table is deleted. If a category is deleted, all category_id values in the posts table that reference this category are set to NULL instead of being removed.
+
+2./ ALTER TABLE posts ADD CONSTRAINT FK_blog_author FOREIGN KEY (author_id) REFERENCES users (id) ON DELETE CASCADE;
+
+Explanation:
+ALTER TABLE posts:
+
+Modifies the posts table to add a new constraint.
+ADD CONSTRAINT FK_blog_author:
+
+Adds a foreign key constraint named FK_blog_author (another custom name for the constraint).
+FOREIGN KEY (author_id):
+
+Specifies that the author_id column in the posts table is a foreign key.
+REFERENCES users (id):
+
+Specifies that author_id in the posts table references the id column in the users table. This means every author_id in the posts table must match an id in the users table (or be NULL).
+ON DELETE CASCADE:
+
+Defines the behavior when a referenced record in the users table is deleted. If an author (a user) is deleted, all posts by this author in the posts table are also deleted automatically.
+
+
+3./ Purpose of This Code:
++) Enforces Referential Integrity:
+
+--> Ensures category_id in posts always points to a valid id in categories.
+--> Ensures author_id in posts always points to a valid id in users.
+
++) Handles Deletion Rules:
+
+--> If a category is deleted, the associated posts' category_id becomes NULL (but the posts remain in the table).
+--> If an author (user) is deleted, all their associated posts are deleted from the posts table (cascade deletion).
+
+Conclusion: This setup is useful for ensuring a robust relational database design and avoiding orphaned records.

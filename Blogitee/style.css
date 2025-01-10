@@ -1,0 +1,950 @@
+:root {
+    --color-primary: #748d92;
+    --color-primary-light: hsla(0, 89%, 15%, 0.18);
+    --color-red-light: hsla(346, 96%, 49%, 0.432);
+    --color-green-light: hsl(156, 100%, 38%, 15%);
+    --color-gray-900: #2e3944;
+    --color-gray-700: #212a31;
+    --color-gray-300: rgba(242, 242, 254, 0.3);
+    --color-gray-200: rgba(242, 242, 254, 0.988);
+    --color-bg: #124e66;
+  
+    --transition: all 300ms ease;
+  
+    --container-width-lg: 75%;
+    --container-width-md: 88%;
+    --form-width: 40%;
+  
+    --card-border-radius-1: 0.3rem;
+    --card-border-radius-2: 0.5rem;
+    --card-border-radius-3: 0.8rem;
+    --card-border-radius-4: 2rem;
+}
+
+/*=======================GENERAL STYLING======================== */
+* { /* Trim all the styling of all elements */
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    border: 0;
+    box-sizing: border-box;
+    appearance: none;
+    list-style: none;
+    text-decoration: none;
+
+}
+
+body{
+    font-family: "Host Grotesk", serif;
+    line-height: 1.6;
+    color: var(--color-gray-200);
+    overflow-x: hidden;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1688494930244-6a7d73e4010a?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bW9kZXJuJTIwYmFja2dyb3VuZHxlbnwwfHwwfHx8MA%3D%3D');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    font-size: 0.9rem;
+}
+.container{
+    width: var(--container-width-lg);/* Set width to 75% of screen */
+    max-width: 1800px; /* Prevent the container to grow larger than the limit in case screen size exceeds this limit */
+    margin: 0 auto;
+}
+section{
+    margin-top: 3rem;
+    width: 100vw /* 100% view port of device */
+}
+h1,h2,h3,h4,h5{
+    color: white;
+    line-height: 1.3; /* space between lines */
+}
+h1{
+    font-size: 3rem;
+    margin: 1rem auto;
+    margin-top: 8rem;
+    width: 75%;
+    color: #B0C4DE;
+}
+h2{
+    font-size: 1.7rem;
+    margin: 1rem 0;
+    margin-bottom: 0.8rem;
+}
+h3{
+    font-size: 1.5rem;
+    image-rendering: 0.8rem ;
+    margin: 1rem 0;
+    margin-bottom: 0.8rem;
+}
+h3:hover {
+    text-decoration: underline; /* Adds an underline on hover */
+}
+h4{
+    font-size: 1rem;
+}
+a{
+    color: white;
+    transition: var(--transition);
+}
+img{
+    display: block;
+    width: 100%;
+    object-fit: cover;
+}
+p{
+    color: rgba(255, 255, 255, 0.916);
+}
+/*======================NAVIGATION BAR======================== */
+nav{
+    background-color: var(--color-primary);
+    width: 100vw;
+    height: 4.5rem;
+    box-shadow: 0 1rem 1rem black; 
+    position: fixed;/* nav bar stays in the same place even if the page is scrolled */
+    top: 0; /* to ensure the position of nav bar always starts on top of the page*/
+    z-index: 10;  /* appear on top of all element with z-index < 10*/
+}
+
+nav button{
+    display: none; /* Hide this element but space will still be reserved ( this section used on smaller device only )*/
+}
+.nav_container{
+    height: 100%;
+    display: flex; 
+    align-items: center; /*allign elements in nav bar to the center within the nav bar layout*/
+    justify-content: space-between; /* add space between README and other elements*/
+}
+.nav_logo{
+    font-weight: 600;
+    font-size: 1.2rem;
+    margin-right: 4rem;
+    color: #FFD700; /* Replace with your preferred color */
+    font-weight: bold;
+}
+
+.nav_items{
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+}
+
+.avatar { /* Styling the login avatar */
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 0.3rem solid var(--color-bg);
+}
+
+.nav_profile{
+    position: relative; /* Set this to 'relative' so that any REPOSITION happened will also reposite the below dropdown ( relative - absolute relationship ) */
+    cursor: pointer;
+}
+
+.nav_profile ul{
+    position: absolute; /* The dropdown wouldn't occupy any space due to being removed from document flow, its modification won't affect other elements*/
+    top: 140%; /* This positioning will also happens to its nearest relative ancestor (.nav_profile) */
+    right: 0;
+    box-shadow: 0 3rem 3rem black;
+    visibility: hidden; /* Hide the element (space will be free) != display: none ( space will be reserved ) */
+    opacity: 0;         /* Fully transparent */
+    transition: var(--transition); 
+}
+
+.nav_profile ul li a{
+    /* Styling dropdown options */
+    padding: 1rem;
+    display: block;
+    background-color: var(--color-gray-900);
+    width: 100%;
+}
+
+.nav_profile:hover > ul{
+    /* Display dropdown options only profile is hovered  */
+    visibility: visible;
+    opacity: 1;
+}
+
+.nav_profile ul li a:hover {
+    /* Dashboard Option Hover */
+    background-color: var(--color-gray-700);
+}
+.nav_profile ul li:last-child a:hover {
+    /* Logout Option hover */
+    background-color: rgb(214, 84, 84);
+}
+/* ================= Featured =========================*/
+.featured_container{
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* equality ratio*/
+    gap: 4rem;
+}
+
+/* ================= 1. Category button =========================*/
+.category_button{
+    border-radius: var( --card-border-radius-2);
+    background-color: coral;
+    color: rgb(0 4 5);
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    font-weight: 600;
+}
+.category_button:hover{
+    color: rgb(255, 200, 0);
+}
+
+/* ================= 2. Thumbnail =========================*/
+.post_thumbnail{
+    margin-bottom: 1.6rem;
+    height: fit-content;
+    position: relative; /*New*/
+}
+
+@property --angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+}
+/* Red square pseudo-element stays on the back of .post_thumbnail */
+.post_thumbnail::after, .post_thumbnail::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    /* background: conic-gradient(from var(--angle),#e893d7, #bfd4f1,#00ffcc, #efdd98);  */
+    background-image: conic-gradient(from var(--angle),#ff4545,#00ff99,#006aff,#ff0095,#ff4545);
+    z-index: -1;
+    padding: 7px;
+    border-radius: 7px;
+    animation: 3s spin linear infinite;
+}
+.post_thumbnail::before {
+   filter: blur(1.5rem);
+   opacity: 0.5;
+} 
+@keyframes spin {
+    from {
+        --angle: 0deg;
+    }
+    to {
+        --angle: 360deg;
+    }
+}
+ 
+
+
+.section_extra-margin .post_thumbnail {
+    margin-top: 5rem;
+}
+
+.post_thumbnail:hover {
+    filter: saturate(0);
+    transition: filter 500ms ease;
+}
+/* ================= 3. Author  =========================*/
+.post_author{
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.2rem;
+}
+.post_author_profile{
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: var( --card-border-radius-3);
+    overflow: hidden;
+}
+/* ================= Posts =========================*/
+
+.post_container{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5rem;
+    margin-bottom: 5rem;
+}
+/* ================= Categories =========================*/
+.categories{
+  padding: 4rem 0;
+  border-top: 2px solid var(--color-gray-900);
+  border-bottom: 2px solid var(--color-gray-900);
+}
+
+.category_container{
+    width: fit-content;
+    display: grid; 
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 1rem; 
+}
+
+.categories .category_button {
+    display: inline-block; 
+    text-align: center; 
+    margin: 0;
+    padding: 1rem 2rem; 
+}
+
+.category_button:hover {
+    transform: scale(1.1); /* Enlarge button by 10% on hover */
+    text-decoration: underline;
+  }
+/* ================= Footer =========================*/
+
+footer{
+    background: var(--color-gray-900);
+    padding: 5rem 0 0;
+    box-shadow: inset 0 1.5rem 1.5rem rgb(0, 0, 0, 0.2);
+}
+
+.footer_socials{
+    margin-inline: auto; /* center block-level elements: <div>, <section> != text-align only for txt.images, inline child elements*/
+    width: fit-content; /* div'sspace spans only within the content's space ( first to last ), it wont span the whole line */
+    margin-bottom: 5rem;
+    display: flex;
+    gap: 1.2rem;
+}
+
+.footer_socials a {
+    background: var(--color-bg);
+    border-radius: 50%;
+    width: 2.3rem;
+    height: 2.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer_socials a:hover {
+    background: white;
+    color: var(--color-bg);
+}
+.footer_container{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin-bottom: 3rem;
+}
+footer h4 {
+    color: var(--color-white);
+    margin-bottom: 0.6rem;
+}
+
+footer ul li {
+    padding: 0.4rem 0;
+}
+
+footer ul a {
+    opacity: 0.75;
+}
+
+footer ul a:hover {
+    letter-spacing: 0.2rem;
+    opacity: 1;
+}
+
+.footer_copyright {
+    text-align: center;
+    padding: 1.5rem 0;
+    border-top: 2px solid var(--color-bg);
+    
+}
+
+
+/* =================================================================== MEDIA QUERY (MEDIUM DEVICES)====================================================================== */
+@media screen and (max-width: 1024px) {
+    /* ================== GENERAL ================== */ 
+    .container {
+        width: var(--container-width-md);
+    }
+
+    h2 {
+        font-size: 1.6rem;
+    }
+
+    h3 {
+        font-size: 1.2rem;
+    }
+
+    h5 {
+        font-size: 0.8rem;
+    }
+
+    /* ================== NAV ================== */
+    nav button {  
+        /* Styling the button and display them inlilne-block */
+        display: inline-block;
+        font-size: 1.5rem;
+        background: transparent;
+        color: var(--color-white);
+        cursor: pointer;
+    }
+
+    nav button#close_nav_opts {
+        /* Hide the close button for now */
+        display: none;
+    }
+
+    .nav_container {
+        position: relative; /* To ensure BLOGGITEE and MENU option still remain in the document flow*/
+    }
+    
+    .nav_items {
+        position: absolute; /* This will be out of document flow to not affect other elements */
+        flex-direction: column;
+        top: 100%;
+        right: 0;
+        width: 12rem;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 0;
+        display: none;
+        perspective: 400px; /* Added perspective for 3D effect */
+    }
+    
+    .nav_items li {
+        width: 100%;
+        height: 4.5rem;
+        display: flex;
+        align-items: center;
+        box-shadow: -2rem 3rem 7rem rgba(0, 0, 0, 0.7);
+        border-top: 1px solid var(--color-bg);
+        animation: animateDropdown 400ms 0s ease forwards;/* nav dropdown animation */
+        opacity: 0;/* nav dropdown animation */
+        transform-origin: top;/* nav dropdown animation */
+    }
+    /* delayed animation */
+
+    .nav_items li:nth-child(2) {
+        animation-delay: 200ms;
+    }
+    
+    .nav_items li:nth-child(3) {
+        animation-delay: 400ms;
+    }
+    
+    .nav_items li:nth-child(4) {
+        animation-delay: 600ms;
+    }
+    
+    .nav_items li:nth-child(5) {
+        animation-delay: 800ms;
+    } 
+
+    /* nav dropdown animation */
+    @keyframes animateDropdown {
+        0% {
+            transform: rotateX(90deg);
+        }
+        100% {
+            transform: rotateX(0deg);
+            opacity: 1;
+        }
+    }
+
+    .nav_items li a {
+        border-radius: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--color-gray-900);
+        padding: 0 2rem;
+        display: flex;
+        align-items: center;
+    }
+
+    .nav_profile {
+        background: var(--color-gray-900);
+    }
+    
+    .nav_profile ul {
+        top: 100%;
+        width: 100%;
+    }
+    
+    .nav_profile .avatar {
+        margin-left: 2rem;
+    }
+
+    .featured_container{
+        gap: 3rem;
+    }
+
+    .post_container{
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+    }
+    /* ======== BLOG ======== */
+    .search_container{
+        width: 70% !important; /* Ensure the rule applies, since outside .search_container has higher priority set*/
+    }
+    /* ======== SELECTED POST ========= */
+    .selectedpost_container {
+        width: 75% !important;;
+    }
+    /* ======== GENERAL FORM ========= */
+    .form_container {
+        width: 60% !important;
+    }
+    /* ======== DASHBOARD ========= */
+    .dashboard_container{
+        grid-template-columns: 4.3rem auto;
+        padding: 0;
+        background: transparent;
+    }
+
+    .dashboard main table th{
+        display: none;
+    }
+
+    .dashboard main table tr{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .dashboard main table tr:nth-child(even){
+        background: var(--color-gray-900);
+    }
+
+    .dashboard main table tr:hover td{
+        background: transparent;
+    }
+}
+/* ====================================================================== END OF MEDIA QUERY (MEDIUM DEVICES)============================================================== */
+
+/* =================================================================== MEDIA QUERY (SMALLER DEVICESx)====================================================================== */
+@media screen and (max-width: 600px) {
+    section {
+        margin-top: 2rem;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .featured {
+        margin-top: 6rem;
+    }
+
+    .featured_container {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .post_container {
+        grid-template-columns: 1fr;
+    }
+    .category_container{
+        grid-template-columns: 1fr;
+    }
+    .footer_container{
+        grid-template-columns: 1fr;
+        text-align:center;
+        gap:2rem;
+    }
+    /* ====== BLOG ======= */
+    .search_container{
+        width: 88% !important; /* Ensure the rule applies, since outside .search_container has higher priority set*/
+    }
+    /* ====== SELECTED POST ====== */
+    .selectedpost_container {
+        background-color: transparent !important;
+        padding: 0 !important;
+    }
+
+    .form_container {
+        width: 80% !important;
+    }
+    /* ======== DASHBOARD ========= */
+    .dashboard{
+        margin-top: 5rem !important;
+        text-align: center !important;
+    }
+    .dashboard_container{
+        grid-template-columns: 1fr !important;
+        gap: 0 !important;
+    }
+    .dashboard main{
+        margin: 0 !important;
+    }
+    .dashboard main h2{
+        margin-top: 1rem !important;
+    } 
+    .dashboard aside {
+        position: fixed !important;
+        box-shadow: 2rem 0 4rem rgba(0, 0, 0, 0.4) !important;
+        left: -100% !important;
+        height: 100vh !important;
+        transition: var(--transition) !important;
+        background: var(--color-primary) !important;
+    }
+    
+    .dashboard .sidebar_toggle {
+        display: inline-block !important;
+        background: var(--color-primary-variant) !important;
+        color: var(--color-white) !important;
+        position: fixed !important;
+        right: 0 !important;
+        bottom: 4rem !important;
+        z-index: 1 !important;
+         width: 2.5rem !important;
+        height: 2.5rem !important;
+        border-radius: 50% 0 0 50% !important;
+        font-size: 1.3rem !important;
+        cursor: pointer !important;
+        box-shadow: -1rem 0 2rem rgba(0, 0, 0, 0.4) !important;  
+    }
+    
+    .dashboard aside a h5 {
+        display: inline-block !important;
+    }
+    
+    #hide_sidebar-btn {
+        display: none !important;
+    } 
+}
+/* ================================================================= END OF MEDIA QUERY (SMALLER DEVICES)================================================================== */
+
+
+/* ================ SEARCH BAR =================== */
+
+.search_bar {
+    margin-top: 7rem;
+}
+
+.search_container {
+    position: relative;
+    width: 40rem;
+    background: var(--color-gray-900);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    overflow: hidden;
+    padding: 0.6rem 1rem;
+    border-radius: var(--card-border-radius-2);
+    color: white;
+}
+
+.search_container > div {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.search_bar input {
+    background: transparent;
+    margin-left: 0.7rem;
+    padding: 0.5rem 0;
+    width: 100%;
+    color: white;
+}
+
+input[type="search"]::-webkit-search-cancel-button {
+    -webkit-appearance: none; /* Reset the default style */
+    height: 1.5rem; /* Adjust the height */
+    width: 1.5rem; /* Adjust the width */
+    background-color: var(--color-primary); /* Set the background color */
+    border-radius: 50%; /* Make it circular */
+    cursor: pointer; /* Add pointer on hover */
+}
+
+input[type="search"]::-webkit-search-cancel-button:hover {
+    background-color: rgb(216, 81, 81); /* Change color on hover */
+}
+
+.search_bar input::placeholder {
+    color: var(--color-gray-300);
+}
+
+.btn {
+    display: inline-block;
+    width: fit-content;
+    padding: 0.6rem 1.2rem;
+    background-color: var(--color-primary);
+    border-radius: var(--card-border-radius-2);
+    cursor: pointer;
+    transition: var(--transition);
+    color: white;
+}
+
+.btn.sm{
+    padding: 0.3rem 0.7rem;
+    font-size: 0.8rem;
+    background-color: #13c4e7;
+}
+
+.btn.danger{
+    background-color: red;
+}
+
+.btn:hover{
+    background-color: white;
+    color: var(--color-bg);
+}
+/* ================ SELECTED POST =================== */
+.selectedpost {
+    margin: 6rem 0 2rem;
+}
+
+.selectedpost_container {
+    width: var(--form-width);
+    background: var(--color-gray-900);
+    padding: 1rem 2rem 2rem;
+}
+
+.selectedpost_thumbnail {
+    margin: 1.5rem 0 1rem;
+}
+
+.selectedpost_container p {
+    margin-top: 1rem;
+    line-height: 1.7;
+}
+
+/* ======================= CATEGORY POSTS ======================= */
+.category_title {
+    height: 15rem;
+    margin-top: 4.5rem;
+    background: var(--color-green-light);
+    display: grid;
+    place-items: center;
+}
+
+/* ======================= EMPTY PAGES ======================= */
+
+.empty_page{
+    height: 70vh;
+    display: grid;
+    place-content: center;
+}
+
+/* ================================================================ REGISTRATION FORM =================================================================== */
+    
+.form_section {
+    /*  Margin for form registration layout in general */
+    display: grid;
+    place-items: center;
+    height: 100vh;
+}
+
+.form_container {
+    width: var(--form-width);
+    
+}
+
+.alert_message {
+    padding: 0.8rem 1.4rem;
+    margin-bottom: 1rem;
+    border-radius: var(--card-border-radius-2);
+}
+
+.alert_message.error { 
+    /* Error message */
+    background: var(--color-red-light);
+}
+.alert_message.error p {
+    /* Valid message */
+    color: rgb(255, 2, 2);
+}
+.alert_message.success {
+    /* Valid message */
+    background: var(--color-green-light);
+}
+.alert_message.success p {
+    /* Valid message */
+    color: rgb(0, 255, 0);
+}
+
+.form_section form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.form_control {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.form_control.inline{
+    flex-direction: row;
+    align-items: center;
+}
+
+input, textarea, select {
+    padding: 0.8rem 1.4rem;
+    background-color: #90aead;
+    border-radius: var(--card-border-radius-2);
+    resize: none;
+    color: black;
+    appearance: auto;
+}
+
+.form_section small a {
+    color: var(--color-primary);
+}
+.form_section small a:hover{
+    text-decoration: underline;
+    color: rgb(34, 0, 137);
+}
+
+.form_container .btn{
+    background-color: #13c4e7;
+    color: #160000;
+}
+.form_container .btn:hover{
+    background-color: #2cc3e179;
+    color: #160000;
+}
+/* ======================================== SIGN IN FLOATING INPUT ================================= */
+
+.input-field{
+    position: relative;
+}
+
+.input-field input, .avatar-field input{
+    width: 100%;
+    border: 2px solid white;
+    background: transparent;
+    outline: none;
+    color: white;
+}
+.input-field input{
+    margin: 8px 0 8px 0;
+}
+.input-field label, .avatar-field label {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    color: #fff;
+    font-size: 15px;
+    pointer-events: none;
+    transition: 0.3s;
+}
+
+.input-field input:focus, .avatar-field input:focus{
+    border: 2px solid #1cd679;
+}
+
+.input-field input:focus ~ label,
+.input-field input:valid ~ label {
+    top: 0;
+    font-size: 14px;
+    padding: 0 10px;
+    color:  #00ff99;
+    background: var(--color-bg);
+}
+
+.avatar-field {
+    position: relative;
+    margin-top: 0.5rem;
+}
+
+.avatar-field input:not(:placeholder-shown) + label {
+    top: -0.5rem;
+    left: 1rem;
+    font-size: 14px;
+    color: #00ff99; /* Adjust this to your desired label color */
+    background: var(--color-bg);
+    padding: 0 10px;
+}
+
+/* ================================================================ DASHBOARD =================================================================== */
+.dashboard{
+    margin-top: 6rem;
+}
+.sidebar_toggle{
+    display: none;
+}
+
+.dashboard_container{
+    display: grid;
+    grid-template-columns: 14rem auto;
+    gap: 1rem;
+    background: var(--color-gray-900);
+    padding: 2rem;
+    margin-bottom: 5rem;
+}
+
+.dashboard aside a{
+    background-color: var(--color-primary);
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    padding: 1.6rem;
+}
+.dashboard aside ul li:not(:last-child) a{
+    border-bottom: 1px solid var(--color-gray-900);
+}
+
+.dashboard aside a:hover{
+    background: var(--color-gray-700);
+}
+
+.dashboard aside a.active{
+    background: var(--color-gray-900);
+}
+
+.dashboard main{
+    margin-left: 1.5rem;
+}
+
+.dashboard main h2{
+    margin-bottom: 0 0 2rem 0;
+    line-height: 1;
+}
+
+.dashboard main table{
+    width: 100%;
+    text-align: center;
+}
+
+.dashboard main table th{
+    background-color: var(--color-gray-700);
+    padding: 0.8rem;
+    color: white;
+}
+
+.dashboard main table td{
+    padding: 0.8rem;
+    border-bottom: 1px solid var(--color-gray-200);
+}
+.dashboard main table tr:hover td{
+    background-color: var(--color-bg);
+    color: white;
+    cursor: default;
+    transition: var(--transition);
+
+}
+
+/* Delete Confirmation */
+.dialog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+.dialog.hidden {
+    display: none;
+}
+
+.dialog-content {
+    background: var(--color-gray-700);
+    padding: 2rem;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.dialog-actions {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-around;
+}
