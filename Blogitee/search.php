@@ -61,7 +61,14 @@ $posts = mysqli_query($connection, $query);
                         <img src="./images/<?= $post['thumbnail'] ?>" alt="<?= $post['title'] ?>">
                     </div>
                     <div class="post_info">
-                        <a href="category.php?id=<?= $post['category_id'] ?>" class="category_button"><?= $post['category_title'] ?></a>
+                        <?php
+                            // fetch category from categories table using category_id of post
+                            $category_id = $post['category_id'];
+                            $category_query = "SELECT * FROM categories WHERE id=$category_id";
+                            $category_result = mysqli_query($connection, $category_query);
+                            $category = mysqli_fetch_assoc($category_result);
+                        ?>
+                        <a href="category.php?id=<?= $category['id'] ?>" class="category_button"><?= $category['title'] ?></a>
                         <h3 class="post_title">
                             <a href="post.php?id=<?= $post['id'] ?>"><?= $post['title'] ?></a>
                         </h3>
