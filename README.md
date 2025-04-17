@@ -2,6 +2,9 @@
 Full-stack Blog application for both clients and administrators
 Blogitee is a full-stack Blog application with content management system designed for both clients and administrators. This project aims to deliver a responsive and scalable blogging platform with efficient client-server interaction and a secure backend system. 
 
+<img width="1512" alt="Screenshot 2025-04-16 at 9 40 04 PM" src="https://github.com/user-attachments/assets/69fa2cc3-6189-4d03-b811-3224324f6fe3" />
+
+
 ## ✨ Features
 
 - **User Management**: Supports user registration, login, and role-based access (Admins and Authors).
